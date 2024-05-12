@@ -1,0 +1,28 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        #service1
+        - id: ServiceA
+          uri: lb://ServiceA
+          predicates:
+            - Path=/ServiceA/**
+          filters:
+            - StripPrefix=1
+
+        #service2
+        - id: ServiceB
+          uri: lb://ServiceB
+          predicates:
+            - Path=/ServiceB/**
+          filters:
+            - StripPrefix=1
+
+
+server:
+  port: 8080
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
